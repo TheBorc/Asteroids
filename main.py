@@ -5,9 +5,6 @@ from circleshape import*
 pygame.init()
 
 def main():
-	for event in pygame.event.get():
-    		if event.type == pygame.QUIT:
-        		return
 	Clock = pygame.time.Clock()
 	dt = 0
 	print ("Starting Asteroids!")
@@ -16,10 +13,16 @@ def main():
 	screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 	player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 	while True:
+		events = pygame.event.get()
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				return
+		dt = Clock.tick(60) / 1000
 		screen.fill("black")
+		player.update(dt)
 		player.draw(screen)
 		pygame.display.flip()
-		dt = Clock.tick(60) / 1000
+
 
 if __name__ == "__main__": #Ensures the main() is only called when this file is run directly and won't run if it's imported
 	main()
