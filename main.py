@@ -1,4 +1,5 @@
 import pygame
+import sys
 from constants import *
 from player import*
 from circleshape import*
@@ -29,10 +30,20 @@ def main():
 				return
 		dt = Clock.tick(60) / 1000
 		screen.fill("black")
+
 		for u in updatable:
 			u.update(dt)
+
+
 		for d in drawable:
 			d.draw(screen)
+
+		for a in asteroids:
+			a.update(dt)
+			if player.collision(a):
+				print("Game over!")
+				sys.exit()
+
 		pygame.display.flip()
 
 
